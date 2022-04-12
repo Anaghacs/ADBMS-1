@@ -1,0 +1,250 @@
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 32
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use db1
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+MariaDB [db1]> create table clientmaster(clientno varchar(20),name varchar(20),address varchar(20),city varchar(20),pincode int,state varchar(20));
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [db1]> insert into clientmaster values('C0111','Amalendu','Kalappatt','Thrissur',680686,'Kerala');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db1]> insert into clientmaster values('C0123','Sairaj','Pathazakkattil','Delhi',680485,'Delhi');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db1]> insert into clientmaster values('C0345','Kavya','Erattu','Bangalore',680785,'Karnataka');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db1]> insert into clientmaster values('C0100','Arunima','Karayil','Chennai',680426,'Tamilnadu');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db1]> insert into clientmaster values('C0105','Arunima','Puthiyavettil','Kolkta',680426,'Bengal');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db1]> select * from clientmaster;
++----------+----------+----------------+-----------+---------+-----------+
+| clientno | name     | address        | city      | pincode | state     |
++----------+----------+----------------+-----------+---------+-----------+
+| C0111    | Amalendu | Kalappatt      | Thrissur  |  680686 | Kerala    |
+| C0123    | Sairaj   | Pathazakkattil | Delhi     |  680485 | Delhi     |
+| C0345    | Kavya    | Erattu         | Bangalore |  680785 | Karnataka |
+| C0100    | Arunima  | Karayil        | Chennai   |  680426 | Tamilnadu |
+| C0105    | Arunima  | Puthiyavettil  | Kolkta    |  680426 | Bengal    |
++----------+----------+----------------+-----------+---------+-----------+
+5 rows in set (0.00 sec)
+
+MariaDB [db1]> insert into clientmaster values('C0200','Jaya','Mullangath','Chennai',680426,'Tamilnadu');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db1]> select * from clientmaster;
++----------+----------+----------------+-----------+---------+-----------+
+| clientno | name     | address        | city      | pincode | state     |
++----------+----------+----------------+-----------+---------+-----------+
+| C0111    | Amalendu | Kalappatt      | Thrissur  |  680686 | Kerala    |
+| C0123    | Sairaj   | Pathazakkattil | Delhi     |  680485 | Delhi     |
+| C0345    | Kavya    | Erattu         | Bangalore |  680785 | Karnataka |
+| C0100    | Arunima  | Karayil        | Chennai   |  680426 | Tamilnadu |
+| C0105    | Arunima  | Puthiyavettil  | Kolkta    |  680426 | Bengal    |
+| C0200    | Jaya     | Mullangath     | Chennai   |  680426 | Tamilnadu |
++----------+----------+----------------+-----------+---------+-----------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> select clientno,name from clientmaster;
++----------+----------+
+| clientno | name     |
++----------+----------+
+| C0111    | Amalendu |
+| C0123    | Sairaj   |
+| C0345    | Kavya    |
+| C0100    | Arunima  |
+| C0105    | Arunima  |
+| C0200    | Jaya     |
++----------+----------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> select distinct(name) from clientmaster;
++----------+
+| name     |
++----------+
+| Amalendu |
+| Sairaj   |
+| Kavya    |
+| Arunima  |
+| Jaya     |
++----------+
+5 rows in set (0.01 sec)
+
+MariaDB [db1]> select clientno,name,address,city from clientmaster order by clientno desc;
++----------+----------+----------------+-----------+
+| clientno | name     | address        | city      |
++----------+----------+----------------+-----------+
+| C0345    | Kavya    | Erattu         | Bangalore |
+| C0200    | Jaya     | Mullangath     | Chennai   |
+| C0123    | Sairaj   | Pathazakkattil | Delhi     |
+| C0111    | Amalendu | Kalappatt      | Thrissur  |
+| C0105    | Arunima  | Puthiyavettil  | Kolkta    |
+| C0100    | Arunima  | Karayil        | Chennai   |
++----------+----------+----------------+-----------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> select clientno,name,address,city from clientmaster order by clientno asc;
++----------+----------+----------------+-----------+
+| clientno | name     | address        | city      |
++----------+----------+----------------+-----------+
+| C0100    | Arunima  | Karayil        | Chennai   |
+| C0105    | Arunima  | Puthiyavettil  | Kolkta    |
+| C0111    | Amalendu | Kalappatt      | Thrissur  |
+| C0123    | Sairaj   | Pathazakkattil | Delhi     |
+| C0200    | Jaya     | Mullangath     | Chennai   |
+| C0345    | Kavya    | Erattu         | Bangalore |
++----------+----------+----------------+-----------+
+6 rows in set (0.00 sec)
+
+
+MariaDB [db1]> select clientno,name from clientmaster where clientno='C0200';
++----------+------+
+| clientno | name |
++----------+------+
+| C0200    | Jaya |
++----------+------+
+1 row in set (0.00 sec)
+
+
+MariaDB [db1]> alter table clientmaster add tno long; 
+Query OK, 0 rows affected (0.33 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> alter table clientmaster add fno long; 
+Query OK, 0 rows affected (0.50 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> desc clientmaster;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| clientno | varchar(20) | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| address  | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| pincode  | int(11)     | YES  |     | NULL    |       |
+| state    | varchar(20) | YES  |     | NULL    |       |
+| tno      | mediumtext  | YES  |     | NULL    |       |
+| fno      | mediumtext  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+MariaDB [db1]> select * from clientmaster;
++----------+----------+----------------+-----------+---------+-----------+------+------+
+| clientno | name     | address        | city      | pincode | state     | tno  | fno  |
++----------+----------+----------------+-----------+---------+-----------+------+------+
+| C0111    | Amalendu | Kalappatt      | Thrissur  |  680686 | Kerala    | NULL | NULL |
+| C0123    | Sairaj   | Pathazakkattil | Delhi     |  680485 | Delhi     | NULL | NULL |
+| C0345    | Kavya    | Erattu         | Bangalore |  680785 | Karnataka | NULL | NULL |
+| C0100    | Arunima  | Karayil        | Chennai   |  680426 | Tamilnadu | NULL | NULL |
+| C0105    | Arunima  | Puthiyavettil  | Kolkta    |  680426 | Bengal    | NULL | NULL |
+| C0200    | Jaya     | Mullangath     | Chennai   |  680426 | Tamilnadu | NULL | NULL |
++----------+----------+----------------+-----------+---------+-----------+------+------+
+6 rows in set (0.00 sec)
+
+
+MariaDB [db1]> update clientmaster set tno=856321456,fno=12456 where clientno='CO111';
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [db1]> select * from clientmaster;
++----------+----------+----------------+-----------+---------+-----------+------+------+
+| clientno | name     | address        | city      | pincode | state     | tno  | fno  |
++----------+----------+----------------+-----------+---------+-----------+------+------+
+| C0111    | Amalendu | Kalappatt      | Thrissur  |  680686 | Kerala    | NULL | NULL |
+| C0123    | Sairaj   | Pathazakkattil | Delhi     |  680485 | Delhi     | NULL | NULL |
+| C0345    | Kavya    | Erattu         | Bangalore |  680785 | Karnataka | NULL | NULL |
+| C0100    | Arunima  | Karayil        | Chennai   |  680426 | Tamilnadu | NULL | NULL |
+| C0105    | Arunima  | Puthiyavettil  | Kolkta    |  680426 | Bengal    | NULL | NULL |
+| C0200    | Jaya     | Mullangath     | Chennai   |  680426 | Tamilnadu | NULL | NULL |
++----------+----------+----------------+-----------+---------+-----------+------+------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> update clientmaster set tno=856321456,fno=12456 where clientno='C0111';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> select * from clientmaster;
++----------+----------+----------------+-----------+---------+-----------+-----------+-------+
+| clientno | name     | address        | city      | pincode | state     | tno       | fno   |
++----------+----------+----------------+-----------+---------+-----------+-----------+-------+
+| C0111    | Amalendu | Kalappatt      | Thrissur  |  680686 | Kerala    | 856321456 | 12456 |
+| C0123    | Sairaj   | Pathazakkattil | Delhi     |  680485 | Delhi     | NULL      | NULL  |
+| C0345    | Kavya    | Erattu         | Bangalore |  680785 | Karnataka | NULL      | NULL  |
+| C0100    | Arunima  | Karayil        | Chennai   |  680426 | Tamilnadu | NULL      | NULL  |
+| C0105    | Arunima  | Puthiyavettil  | Kolkta    |  680426 | Bengal    | NULL      | NULL  |
+| C0200    | Jaya     | Mullangath     | Chennai   |  680426 | Tamilnadu | NULL      | NULL  |
++----------+----------+----------------+-----------+---------+-----------+-----------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> update clientmaster set tno=9645872301,fno=12434 where clientno='C0123';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> update clientmaster set tno=9679104653,fno=12567 where clientno='C0345';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> update clientmaster set tno=8469715884,fno=12489 where clientno='C0100';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> update clientmaster set tno=8479158332,fno=12863 where clientno='C0105';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> update clientmaster set tno=7568249210,fno=12143 where clientno='C0200';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db1]> select * from clientmaster;
++----------+----------+----------------+-----------+---------+-----------+------------+-------+
+| clientno | name     | address        | city      | pincode | state     | tno        | fno   |
++----------+----------+----------------+-----------+---------+-----------+------------+-------+
+| C0111    | Amalendu | Kalappatt      | Thrissur  |  680686 | Kerala    | 856321456  | 12456 |
+| C0123    | Sairaj   | Pathazakkattil | Delhi     |  680485 | Delhi     | 9645872301 | 12434 |
+| C0345    | Kavya    | Erattu         | Bangalore |  680785 | Karnataka | 9679104653 | 12567 |
+| C0100    | Arunima  | Karayil        | Chennai   |  680426 | Tamilnadu | 8469715884 | 12489 |
+| C0105    | Arunima  | Puthiyavettil  | Kolkta    |  680426 | Bengal    | 8479158332 | 12863 |
+| C0200    | Jaya     | Mullangath     | Chennai   |  680426 | Tamilnadu | 7568249210 | 12143 |
++----------+----------+----------------+-----------+---------+-----------+------------+-------+
+6 rows in set (0.00 sec)
+
+
+MariaDB [db1]> alter table clientmaster modify tno varchar(20);
+Query OK, 6 rows affected (0.83 sec)               
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> desc clientmaster;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| clientno | varchar(20) | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| address  | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| pincode  | int(11)     | YES  |     | NULL    |       |
+| state    | varchar(20) | YES  |     | NULL    |       |
+| tno      | varchar(20) | YES  |     | NULL    |       |
+| fno      | mediumtext  | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+MariaDB [db1]> drop table clientmaster;
+Query OK, 0 rows affected (0.10 sec)
+
+MariaDB [db1]> 
+

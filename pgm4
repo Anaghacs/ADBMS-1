@@ -1,0 +1,858 @@
+student@student-OptiPlex-3050:~$ sudo mysql  -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 36
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [dbm]> create table jobs(job_id int primary key,job_title varchar(20),min_salary int,max_salary int);
+Query OK, 0 rows affected (0.18 sec)
+
+MariaDB [dbm]> insert into jobs values(1001,'Manager',15000,30000);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> insert into jobs values(1002,'Sales',5000,10000);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [dbm]> insert into jobs values(1023,'Accountant',15000,20000);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [dbm]> insert into jobs values(1045,'Analyst',18000,25000);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [dbm]> insert into jobs values(1067,'Clerk',10000,20000);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [dbm]> select *from jobs;
++--------+------------+------------+------------+
+| job_id | job_title  | min_salary | max_salary |
++--------+------------+------------+------------+
+|   1001 | Manager    |      15000 |      30000 |
+|   1002 | Sales      |       5000 |      10000 |
+|   1023 | Accountant |      15000 |      20000 |
+|   1045 | Analyst    |      18000 |      25000 |
+|   1067 | Clerk      |      10000 |      20000 |
++--------+------------+------------+------------+
+5 rows in set (0.01 sec)
+
+MariaDB [dbm]>create table departments(department_id int primary key,department_name varchar(20));
+Query OK, 0 rows affected (0.18 sec)
+
+
+
+MariaDB [dbm]> insert into departments values('20','Accounting');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [dbm]> insert into departments values('14','Sales');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [dbm]> insert into departments values('34','Marketting');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [dbm]> insert into departments values('16','IT');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [dbm]> insert into departments values('10','Manufacturing');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [dbm]> select *from departments;
++---------------+-----------------+
+| department_id | department_name |
++---------------+-----------------+
+| 10            | Manufacturing   |
+| 14            | Sales           |
+| 16            | IT              |
+| 20            | Accounting      |
+| 34            | Marketting      |
+MariaDB [dbm]> create table employees(employee_id int primary key,first_name varchar(20),last_name varchar(20),email varchar(20),phone_number int,hire_date date,job_id int references jobs(job_id),salary int,manager_id int,department_id varchar(20) references departments(department_id));
+Query OK, 0 rows affected (0.22 sec)
+
+Empty set (0.00 sec)
+
+MariaDB [dbm]> insert into employees values(1,'Arunima','KJ','arunima2000@gmail.com',8520156634,'2000-05-10',1045,20000,104,'16');
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+MariaDB [dbm]> select *from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+1 row in set (0.00 sec)
+
+MariaDB [dbm]> insert into employees values(2,'Kavya','AR','kavaya456@gmail.com',9254551092,'2007-04-22',1002,5000,108,'14');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [dbm]> insert into employees values(3,'Rahul','KM','rahulkm18@gmail.com',9956324567,'2012-04-05',1001,25000,112,'20');
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> insert into employees values(4,'Neha','ES','neha123@gmail.com',8429015783,'2014-10-06',1023,15000,120,'10');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [dbm]> insert into employees values(5,'Gokul','KR','gokulkr67@gmail.com',8865335801,'2012-05-12',1067,20000,116,'34');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [dbm]> select *from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.com | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  25000 |        112 | 20            |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+5 rows in set (0.00 sec)
+MariaDB [dbm]> alter table employees add commission int;
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |       NULL |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |       NULL |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |       NULL |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |       NULL |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |       NULL |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]>alter table departments rename to dept;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [dbm]> alter table employees modify salary amallint;
+ Query OK, 1 row affected (0.04 sec)
+
+MariaDB [dbm]>alter table employees drop hire_date;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=250 where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+
+MariaDB [dbm]> update employees set commission=100 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ    MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+    | arunima2000@gmail.co | 852015MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+--------MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+--------MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+---+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
+---+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+6634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |        300 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+
+
+MariaDB [dbm]> select * from employees where salary>30000;
+Empty set (0.00 sec)
+
+MariaDB [dbm]> update employees set salary=35000 where employee_id=3;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |
++-------------+------------+-------MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+----+----------------------+--------------+------------+--------+--------+------------+---------------+
+5 rows in set (0.00 sec)MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
+
+MariaDB [dbm]> select * from employees where salary>30000;
++-------------+------------+-----------+---------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_nMariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+------------------MariaDB [dbm]> alter table employees add commission int;
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |       NULL |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |       NULL |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |       NULL |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |       NULL |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |       NULL |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=250 where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=100 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0MariaDB [dbm]> alter table employees add commission int;
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |       NULL |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |       NULL |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |       NULL |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |       NULL |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |       NULL |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=250 where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)MariaDB [dbm]> alter table employees add commission int;
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |       NULL |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |       NULL |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |       NULL |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |       NULL |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |       NULL |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=1;
+Query OK, 1 row affected (0.04 sec)MariaDB [dbm]> alter table employees add commission int;
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |       NULL |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |       NULL |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |       NULL |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |       NULL |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |       NULL |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=250 where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=100 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0MariaDB [dbm]> alter table employees add commission int;
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |       NULL |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |       NULL |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |       NULL |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |       NULL |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |       NULL |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=250 where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=100 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+MariaDB [dbm]> alter table employees add commission int;
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |       NULL |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |       NULL |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |       NULL |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |       NULL |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |       NULL |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=250 where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=100 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |        300 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> delete from employee where employee_id=4;
+ERROR 1146 (42S02): Table 'dbm.employee' doesn't exist
+MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |MariaDB [dbm]> alter table employees add commission int;
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |       NULL |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |       NULL |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |       NULL |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |       NULL |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |       NULL |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=250 where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=100 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |        300 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> delete from employee where employee_id=4;
+ERROR 1146 (42S02): Table 'dbm.employee' doesn't exist
+MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |        300 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> delete from employee where employee_id=4;
+ERROR 1146 (42S02): Table 'dbm.employee' doesn't exist
+MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |        300 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> delete from employee where employee_id=4;
+ERROR 1146 (42S02): Table 'dbm.employee' doesn't exist
+MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=250 where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=100 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |        300 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> delete from employee where employee_id=4;
+ERROR 1146 (42S02): Table 'dbm.employee' doesn't exist
+MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=100 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |        300 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> delete from employee where employee_id=4;
+ERROR 1146 (42S02): Table 'dbm.employee' doesn't exist
+MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |        300 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+
+MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+----+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+ame | email               | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+---------------------+--------------+------------+--------+--------+------------+---------------+
+|           3 | Rahul      | KM        | rahulkm18@gmail.com | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |
++-------------+------------+-----------+---------------------+--------------+------------+--------+--------+------------+---------------+
+1 row in set (0.00 sec)
+MariaDB [dbm]> alter table employees add commission int;
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |       NULL |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |       NULL |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |       NULL |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |       NULL |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |       NULL |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=250 where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=100 where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=300 where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> update employees set commission=200 where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           4 | Neha       | ES        | neha123@gmail.com    | 8429015783   | 2014-10-06 |   1023 |  15000 |        120 | 10            |        300 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+
+MariaDB [dbm]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [dbm]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+|           1 | Arunima    | KJ        | arunima2000@gmail.co | 8520156634   | 2000-05-10 |   1045 |  20000 |        104 | 16            |        200 |
+|           2 | Kavya      | AR        | kavaya456@gmail.com  | 9254551092   | 2007-04-22 |   1002 |   5000 |        108 | 14            |        250 |
+|           3 | Rahul      | KM        | rahulkm18@gmail.com  | 9956324567   | 2012-04-05 |   1001 |  35000 |        112 | 20            |        100 |
+|           5 | Gokul      | KR        | gokulkr67@gmail.com  | 8865335801   | 2012-05-12 |   1067 |  20000 |        116 | 34            |        200 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+MariaDB [dbm]> truncate table dept;
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [dbm]> select * from dept;
+Empty set (0.00 sec)
+
+
+

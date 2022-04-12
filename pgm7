@@ -1,0 +1,323 @@
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 33
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database db2;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [db2]> create table author(id int primary key,name varchar(20),city varchar(20),country varchar(20));
+Query OK, 0 rows affected (0.23 sec)
+
+MariaDB [db2]> insert into values(101,'MT Vasudevan Nair','Palakkad','India');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'values(101,'MT Vasudevan Nair','Palakkad','India')' at line 1
+MariaDB [db2]> insert into author values(101,'MT Vasudevan','Palakkad','India');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [db2]> insert into author values(102,'Sethu','Ernakulam','India');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> insert into author values(104,'Poulo coelho','Janeiro','Brazil');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> insert into author values(103,'Basheer','Calicut','India');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> select * from author;
++-----+--------------+-----------+---------+
+| id  | name         | city      | country |
++-----+--------------+-----------+---------+
+| 101 | MT Vasudevan | Palakkad  | India   |
+| 102 | Sethu        | Ernakulam | India   |
+| 103 | Basheer      | Calicut   | India   |
+| 104 | Poulo coelho | Janeiro   | Brazil  |
++-----+--------------+-----------+---------+
+4 rows in set (0.00 sec)
+
+MariaDB [db2]> create table publisher(id  int primary key,name varchar(50),city varchar(20),country varchar(20));
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [db2]> insert into publisher values(147,'Dream world','Gandhipuram','coimbatore');
+Query OK, 1 row affected (0.03 sec)
+MariaDB [db2]> insert into category values(4,'Fantasy');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> select * from category;
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | Novel       |
+|  2 | Short story |
+|  3 | Fiction     |
+|  4 | Fantasy     |
++----+-------------+
+4 rows in set (0.00 sec)
+
+
+MariaDB [db2]> insert into publisher values(150,'Nyna Books','Kottayam','India');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> insert into publisher values(200,'Current Books','Kottayam','India');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [db2]> insert into publisher values(258,'Siso Books','Thriruvananthapuram','India');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> select * from publishers;MariaDB [db2]> insert into category values(4,'Fantasy');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> select * from category;
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | Novel       |
+|  2 | Short story |
+|  3 | Fiction     |
+|  4 | Fantasy     |
++----+-------------+
+4 rows in set (0.00 sec)
+
+
+ERROR 1146 (42S02): Table 'db2.publishers' doesn't exist
+MariaDB [db2]> select * from publisher;
++-----+---------------+---------------------+------------+
+| id  | name          | city                | country    |
++-----+---------------+---------------------+------------+
+| 147 | Dream world   | Gandhipuram         | coimbatore |
+| 150 | Nyna Books    | Kottayam            | India      |
+| 200 | Current Books | Kottayam            | India      |
+| 258 | Siso Books    | Thriruvananthapuram | India      |
++-----+---------------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+MariaDB [db2]> create table category(id int primary key,description varchar(30));
+Query OK, 0 rows affected (0.22 sec)
+MariaDB [db2]> insert into category values(4,'Fantasy');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> select * from category;
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | Novel       |
+|  2 | Short story |
+|  3 | Fiction     |
+|  4 | Fantasy     |MariaDB [db2]> insert into category values(4,'Fantasy');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> select * from category;
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | Novel       |
+|  2 | Short story |
+|  3 | Fiction     |
+|  4 | Fantasy     |
++----+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [db2]> insert into category values(4,'Fantasy');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> select * from category;
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | Novel       |
+|  2 | Short story |
+|  3 | Fiction     |
+|  4 | Fantasy     |
++----+-------------+
+4 rows in set (0.00 sec)
+
+
++----+-------------+MariaDB [db2]> insert into category values(4,'Fantasy');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> select * from category;
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | Novel       |
+|  2 | Short story |
+|  3 | Fiction     |
+|  4 | Fantasy     |
++----+-------------+
+4 rows in set (0.00 sec)
+
+
+4 rows in set (0.00 sec)
+
+
+MariaDB [db2]> insert into category values(1,'Novel');
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [db2]> insert into category values(2,'Short story');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> insert into category values(3,'Fiction');
+Query OK, 1 row affected (0.03 sec)
+
+
+MariaDB [db2]> insert into category values(4,'Fantasy');
+Query OK, 1 row affected (0.03 sec)
+MariaDB [db2]> insert into category values(4,'Fantasy');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db2]> select * from category;
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | Novel       |
+|  2 | Short story |
+|  3 | Fiction     |
+|  4 | Fantasy     |
++----+-------------+
+4 rows in set (0.00 sec)
+
+
+MariaDB [db2]> select * from category;
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | Novel       |
+|  2 | Short story |
+|  3 | Fiction     |
+|  4 | Fantasy     |
++----+-------------+
+4 rows in set (0.00 sec)
+
+
+MariaDB [db2]> create table books(book_id int,title varchar(30), author_id int references author(id),publisher_id int references publisher(id),category_id int references category(id),year year,price int);
+Query OK, 0 rows affected (0.48 sec)
+
+
+MariaDB [db2]> insert into books values(1001,'Randamoozam',101,200,1,1997,650);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [db2]> insert into books values(1006,'Bhalyakalasakhi',103,150,4,1996,700);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [db2]> insert into books values(1008,'Ozukunna puzapole',104,258,3,1998,850);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [db2]> insert into books values(1004,'Thaliyola',102,147,2,1995,400);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [db2]> select * from books;
++---------+-------------------+-----------+--------------+-------------+------+-------+
+| book_id | title             | author_id | publisher_id | category_id | year | price |
++---------+-------------------+-----------+--------------+-------------+------+-------+
+|    1001 | Randamoozam       |       101 |          200 |           1 | 1997 |   650 |
+|    1006 | Bhalyakalasakhi   |       103 |          150 |           4 | 1996 |   700 |
+|    1008 | Ozukunna puzapole |       104 |          258 |           3 | 1998 |   850 |
+|    1004 | Thaliyola         |       102 |          147 |           2 | 1995 |   400 |
++---------+-------------------+-----------+--------------+-------------+------+-------+
+4 rows in set (0.00 sec)
+
+
+
+MariaDB [db2]> select title,author.name,publisher.name from books left join author on author.id=books.author_id left join publisher on publisher.id=books.publisher_id where year in (1996,1997,1998);
++-------------------+--------------+---------------+
+| title             | name         | name          |
++-------------------+--------------+---------------+
+| Randamoozam       | MT Vasudevan | Current Books |
+| Bhalyakalasakhi   | Basheer      | Nyna Books    |
+| Ozukunna puzapole | Poulo coelho | Siso Books    |
++-------------------+--------------+---------------+
+3 rows in set (0.00 sec)
+
+MariaDB [db2]> select * from books where price between 600 and 800;
++---------+-----------------+-----------+--------------+-------------+------+-------+
+| book_id | title           | author_id | publisher_id | category_id | year | price |
++---------+-----------------+-----------+--------------+-------------+------+-------+
+|    1001 | Randamoozam     |       101 |          200 |           1 | 1997 |   650 |
+|    1006 | Bhalyakalasakhi |       103 |          150 |           4 | 1996 |   700 |
++---------+-----------------+-----------+--------------+-------------+------+-------+
+2 rows in set (0.00 sec)
+
+
+
+MariaDB [db2]> alter table books modify book_id int primary key;
+Query OK, 4 rows affected (0.67 sec)               
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+MariaDB [db2]> select book_id, title,price from books ;
++---------+-------------------+-------+
+| book_id | title             | price |
++---------+-------------------+-------+
+|    1001 | Randamoozam       |   650 |
+|    1004 | Thaliyola         |   400 |
+|    1006 | Bhalyakalasakhi   |   700 |
+|    1008 | Ozukunna puzapole |   850 |
++---------+-------------------+-------+
+4 rows in set (0.00 sec)
+
+
+MariaDB [db2]> select * from books where title like 'B%';
++---------+-----------------+-----------+--------------+-------------+------+-------+
+| book_id | title           | author_id | publisher_id | category_id | year | priceMariaDB [db2]> select title from books b left join category c on b.category_id=c.id where c.description!='novel';
+ |
++---------+-----------------+-----------+--------------+-------------+------+-------+
+|    1006 | Bhalyakalasakhi |       103 |          150 |           4 | 1996 |   700 |
++---------+-----------------+-----------+--------------+-------------+------+-------+
+1 row in set (0.00 sec)
+
+
+
+MariaDB [db2]> select * from author order by name desc;
++-----+--------------+-----------+---------+
+| id  | name         | city      | country |
++-----+--------------+-----------+---------+
+| 102 | Sethu        | Ernakulam | India   |
+| 104 | Poulo coelho | Janeiro   | Brazil  |
+| 101 | MT Vasudevan | Palakkad  | India   |
+| 103 | Basheer      | Calicut   | India   |
++-----+--------------+-----------+---------+MariaDB [db2]> select title from books b left join category c on b.category_id=c.id where c.description!='novel';
+
+4 rows in set (0.01 sec)
+
+
+MariaDB [db2]> select title from books where price>500;
++-------------------+
+| title             |
++-------------------+
+| Randamoozam       |
+| Bhalyakalasakhi   |
+| Ozukunna puzapole |MariaDB [db2]> select title from books b left join category c on b.category_id=c.id where c.description!='novel';
+
++-------------------+
+3 rows in set (0.01 sec)
+
+
+MariaDB [db2]> select title from books b left join category c on b.category_id=c.id where c.description!='novel';
+
+
++-------------------+ 
+| title             |
++-------------------+
+| Thaliyola         |
+| Ozukunna puzapole |
+| Bhalyakalasakhi   |
++-------------------+
+3 rows in set (0.01 sec)
+
+
+
+MariaDB [db2]> select title,author.name,publisher.name from books left join author on author.id=books.author_id left join publisher on publisher.id=books.publisher_id where year in (1996,1997,1998);
++-------------------+--------------+---------------+
+| title             | name         | name          |
++-------------------+--------------+---------------+
+| Randamoozam       | MT Vasudevan | Current Books |
+| Bhalyakalasakhi   | Basheer      | Nyna Books    |
+| Ozukunna puzapole | Poulo coelho | Siso Books    |
++-------------------+--------------+---------------+
+3 rows in set (0.00 sec)
+
