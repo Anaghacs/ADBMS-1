@@ -15,9 +15,30 @@ begin
 	end loop;
 	if m= temp
 	then
-		dbms_output.put_line(temp|| 'Is Palindrome');
+		dbms_output.put_line(temp|| ' Is Palindrome');
 	else
-		dbms_output.put_line(temp|| 'Is Not Palindrome');
+		dbms_output.put_line(temp|| ' Is Not Palindrome');
 	end if;
 end;
 /
+
+
+
+Enter value for n: 454
+old   7:        n:=&n;
+new   7:        n:=454;
+454 Is Palindrome
+
+PL/SQL procedure successfully completed.
+
+
+Enter value for n: 678
+old   7:        n:=&n;
+new   7:        n:=678;
+876 Is Not Palindrome
+
+PL/SQL procedure successfully completed.
+
+
+
+
