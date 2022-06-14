@@ -1,0 +1,78 @@
+> db.Empdetails.find();
+{ "_id" : ObjectId("62a86a5df3ff82d7d29d98c4"), "name" : "Manu", "age" : 29, "email" : "Manu@gmail.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a86a6df3ff82d7d29d98c5"), "name" : "Ram", "age" : 31, "email" : "Ram@gmail.com", "salary" : 4500 }
+{ "_id" : ObjectId("62a86b0bf3ff82d7d29d98c6"), "name" : "Raju", "age" : 29, "email" : "Raju@gmail.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a86b4af3ff82d7d29d98c7"), "name" : "Mohan", "age" : 32, "email" : "neil@gmail.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a86b98f3ff82d7d29d98c8"), "name" : "Bhuvan", "age" : 30, "email" : "Bhuvan@gmail.com", "salary" : 5000 }
+> db.Empdetails.update({name:"Bhuvan"},{$set:{dept:"Developer"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.Empdetails.update({name:"Mohan"},{$set:{dept:"Designer"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Empdetails.update({name:"Manu"},{$set:{dept:"Designer"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Empdetails.update({name:"Raju"},{$set:{dept:"Tester"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Empdetails.update({name:"Ram"},{$set:{dept:"Tester"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Empdetails.find();
+{ "_id" : ObjectId("62a86a5df3ff82d7d29d98c4"), "name" : "Manu", "age" : 29, "email" : "Manu@gmail.com", "salary" : 5500, "dept" : "Designer" }
+{ "_id" : ObjectId("62a86a6df3ff82d7d29d98c5"), "name" : "Ram", "age" : 31, "email" : "Ram@gmail.com", "salary" : 4500, "dept" : "Tester" }
+{ "_id" : ObjectId("62a86b0bf3ff82d7d29d98c6"), "name" : "Raju", "age" : 29, "email" : "Raju@gmail.com", "salary" : 6000, "dept" : "Tester" }
+{ "_id" : ObjectId("62a86b4af3ff82d7d29d98c7"), "name" : "Mohan", "age" : 32, "email" : "neil@gmail.com", "salary" : 4000, "dept" : "Designer" }
+{ "_id" : ObjectId("62a86b98f3ff82d7d29d98c8"), "name" : "Bhuvan", "age" : 30, "email" : "Bhuvan@gmail.com", "salary" : 5000, "dept" : "Developer" }
+ > db.Empdetails.aggregate([{$group:{_id:"$dept","Avg_salary":{$avg:"$salary"}}}])
+{ "_id" : "Designer", "Avg_salary" : 4750 }
+{ "_id" : "Developer", "Avg_salary" : 5000 }
+{ "_id" : "Tester", "Avg_salary" : 5250 }
+
+> db.Empdetails.aggregate([{$group:{_id:"$dept","Min_Salary":{$min:"$salary"}}}])
+{ "_id" : "Designer", "Min_Salary" : 4000 }
+{ "_id" : "Developer", "Min_Salary" : 5000 }
+{ "_id" : "Tester", "Min_Salary" : 4500 }
+
+
+> db.Empdetails.aggregate([{$group:{_id:"$dept","Max_Salary":{$max:"$salary"}}}])
+{ "_id" : "Designer", "Max_Salary" : 5500 }
+{ "_id" : "Developer", "Max_Salary" : 5000 }
+{ "_id" : "Tester", "Max_Salary" : 6000 }
+
+
+> db.Empdetails.aggregate([{$group:{_id:"$dept","No of Employees":{$sum:1}}}])
+{ "_id" : "Designer", "No of Employees" : 2 }
+{ "_id" : "Developer", "No of Employees" : 1 }
+{ "_id" : "Tester", "No of Employees" : 2 }
+
+
+
+
+> db.Empdetails.find().sort({name:-1})
+{ "_id" : ObjectId("62a86a6df3ff82d7d29d98c5"), "name" : "Ram", "age" : 31, "email" : "Ram@gmail.com", "salary" : 4500, "dept" : "Tester" }
+{ "_id" : ObjectId("62a86b0bf3ff82d7d29d98c6"), "name" : "Raju", "age" : 29, "email" : "Raju@gmail.com", "salary" : 6000, "dept" : "Tester" }
+{ "_id" : ObjectId("62a86b4af3ff82d7d29d98c7"), "name" : "Mohan", "age" : 32, "email" : "neil@gmail.com", "salary" : 4000, "dept" : "Designer" }
+{ "_id" : ObjectId("62a86a5df3ff82d7d29d98c4"), "name" : "Manu", "age" : 29, "email" : "Manu@gmail.com", "salary" : 5500, "dept" : "Designer" }
+{ "_id" : ObjectId("62a86b98f3ff82d7d29d98c8"), "name" : "Bhuvan", "age" : 30, "email" : "Bhuvan@gmail.com", "salary" : 5000, "dept" : "Developer" }
+
+
+
+> db.Empdetails.createIndex({name:"text"})
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+
+
+> db.Empdetails.find()
+{ "_id" : ObjectId("62a86a5df3ff82d7d29d98c4"), "name" : "Manu", "age" : 29, "email" : "Manu@gmail.com", "salary" : 5500, "dept" : "Designer" }
+{ "_id" : ObjectId("62a86a6df3ff82d7d29d98c5"), "name" : "Ram", "age" : 31, "email" : "Ram@gmail.com", "salary" : 4500, "dept" : "Tester" }
+{ "_id" : ObjectId("62a86b0bf3ff82d7d29d98c6"), "name" : "Raju", "age" : 29, "email" : "Raju@gmail.com", "salary" : 6000, "dept" : "Tester" }
+{ "_id" : ObjectId("62a86b4af3ff82d7d29d98c7"), "name" : "Mohan", "age" : 32, "email" : "neil@gmail.com", "salary" : 4000, "dept" : "Designer" }
+{ "_id" : ObjectId("62a86b98f3ff82d7d29d98c8"), "name" : "Bhuvan", "age" : 30, "email" : "Bhuvan@gmail.com", "salary" : 5000, "dept" : "Developer" }
+
+
+> db.Empdetails.find({$text:{$search:"Mohan Bhuvan"}})
+{ "_id" : ObjectId("62a86b98f3ff82d7d29d98c8"), "name" : "Bhuvan", "age" : 30, "email" : "Bhuvan@gmail.com", "salary" : 5000, "dept" : "Developer" }
+{ "_id" : ObjectId("62a86b4af3ff82d7d29d98c7"), "name" : "Mohan", "age" : 32, "email" : "neil@gmail.com", "salary" : 4000, "dept" : "Designer" }
+
